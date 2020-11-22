@@ -12,14 +12,15 @@
     <li data-target="#demo" data-slide-to="2"></li>
   </ul>
 
+  {% for img in image %}
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="{{ picurl }}" alt="Los Angeles">
+      <img src="{{ img['url'] }}" alt="img['caption']">
       <div class="carousel-caption">
-        <h3>{{ pictitle }}</h3>
-        <p>{{ piccaptiom }}</p>
+        <h3>{{ img["caption"] }}</h3>
       </div>
     </div>
+  {% endfor %}
 
   <!-- Left and right controls -->
   <a class="carousel-control-prev" href="#demo" data-slide="prev">
