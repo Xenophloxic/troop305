@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h3 style="padding-top: 5%;display:flex;justify-content:center;align-items:center;">Upload Images</h3>
+    <div style="display:flex;justify-content:center;align-items:center;padding-top:10%">
+        <form style="padding-top: 10px;" method=post action="/upload" enctype=multipart/form-data>
+          <input type=file name=file>
+          <input type="text" placeholder="Caption" name="Caption">
+          <input type=submit value=Upload>
+        </form>
+    </div>
+{% endblock %}
