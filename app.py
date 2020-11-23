@@ -56,7 +56,7 @@ def upload_file():
             cap = request.form.get('Caption')
             print(cap)
             db.execute('INSERT INTO images (url, caption) VALUES (:url, :caption)',
-                       url=info["data"]["url_viewer"], caption=cap)
+                       url=info["data"]["display_url"], caption=cap)
             # return redirect('/webmaster')
         else:
             return "ERROR"
