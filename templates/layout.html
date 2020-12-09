@@ -33,31 +33,54 @@ http://troop100seattle.com/
   	<a href="/" style="padding-bottom: 25px;">
   		<img src="./static/BSA.jpg" alt="Home">
     </a>
-	<nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
+	<nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top" style="padding-bottom: 5px;">
     <a class="navbar-brand" href="/">Troop 305</a>
+    <button type="button" class="navbar-toggler bg-primary" data-toggle="collapse" data-target="#nav">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="nav">
     <ul class="navbar-nav">
       <li class="nav-item active">
         <a class="nav-link" href="/events">Events and Calender</a>
       </li>
-      <li class="nav-item active dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-          More
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="/advance">Advancement</a>
-          <a class="dropdown-item" href="/eagle">Eagle Scout Honor Roll</a>
-          <a class="dropdown-item" href="/resource">Resources</a>
-        </div>
       <li class="nav-item active">
         <a class="nav-link" href="http://webmail.troop305.net/">Email login</a>
-      </li>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="/login">Webmaster login</a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/resource">Resources</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/advance">Advancement</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/photos">Photos</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Docs and Forms</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="https://beascout.scouting.org/">Join Scouting</a>
+      </li>
+      <li class="nav-item active dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          More
+        </a>  
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/eagle">Eagle Scout Honor Roll</a>
+          <a class="dropdown-item" href="/presource">Planning Resources</a>
+          <a class="dropdown-item" href="/contact">Contact Us</a>
+          <a class="dropdown-item" href="/policy">Policy</a>
+          <a class="dropdown-item" href="/messages">Messages</a>
+          <a class="dropdown-item" href="/about">About Us</a>
+        </div>
+      </li>
+      
     </ul>
+    </div>
   </nav>
-  <div style="padding-bottom: 25px;"></div>
   
   {% block content %}
   {% endblock content %}
@@ -75,7 +98,7 @@ http://troop100seattle.com/
 		{% block main %}{% endblock %}
 	</main>
 
-	<footer class="small text-center text-muted">
+	<footer class="small text-center text-muted" style="padding-bottom: 25px;">
 		© Copyright 2009-{{ year }} Troop 305, All rights reserved.
 	</footer>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js"></script>

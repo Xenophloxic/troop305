@@ -17,6 +17,10 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def get_text(file):
+    if file == "indexabout":
+        with open('./text/index-about.txt', 'r') as f:
+            return f.read()
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -27,7 +31,8 @@ def login():
 def index():
     title = "Home"
     img = db.execute('SELECT * FROM images')
-    return render_template("index.html", title=title, image=img, year=datetime.now().year)
+    result = get_text("indexabout")
+    return render_template("index.html", title=title, image=img, year=datetime.now().year, indexabout=result)
 
 
 @app.route('/webmaster')
