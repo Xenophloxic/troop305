@@ -27,12 +27,12 @@ def login():
 def index():
     title = "Home"
     img = db.execute('SELECT * FROM images')
-    return render_template("index.html", title=title, image=img)
+    return render_template("index.html", title=title, image=img, year=datetime.now().year)
 
 
 @app.route('/webmaster')
 def webhome():
-    return "test"
+    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year)
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -53,17 +53,13 @@ def upload_file():
             }
             res = requests.post(url, payload)
             info = res.json()
-            cap = request.form.get('Caption')
-            print(cap)
-            db.execute('INSERT INTO images (url, caption) VALUES (:url, :caption)',
-                       url=info["data"]["display_url"], caption=cap)
+            db.execute('INSERT INTO images (url) VALUES (:url)',
+                       url=info["data"]["display_url"])
             # return redirect('/webmaster')
         else:
             return "ERROR"
-    return render_template('upload.html')
+    return render_template('upload.html', year=datetime.now().year)
 
 
 if __name__ == "__main__":
     app.run(debug=True)  # host='0.0.0.0'
-
-# https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/

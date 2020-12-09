@@ -3,20 +3,61 @@
 
 {% block content %}
   {{ super() }}
-<div class="container">
-
+<div class="carousel" data-flickity='{ "cellAlign": "left",
+          "contain": true,
+          "autoPlay": 3000,
+          "pauseAutoPlayOnHover": false,
+          "wrapAround": true }'>
     {% for img in image %}
-	<div class="mySlides">
-		<img src="{{ img['url'] }}" style="width:100%">
-	</div>
-    <div class="caption-container">
-	  <p id="caption">{{ img['caption'] }}</p>
-	</div>
+      <img src="{{ img['url'] }}">
     {% endfor %}
-
-	<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-	<a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-	
 </div>
-{% endblock %}  
+
+<div style="padding-left: 5%; padding-top: 5%;">
+    <h1 class="page-header">Welcome to Troop 305</h1>
+    <div class="row">
+      <div class="col-4">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a class="list-group-item list-group-item-action active" id="list-about-list" data-toggle="list" href="#list-about" role="tab" aria-controls="about">About</a>
+          <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+          <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
+          <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="list-about" role="tabpanel" aria-labelledby="list-home-list">Troop 305 is part of Pioneer District in the Blue Mountain Council in Area 1 of the Western Region of the National Council.</div>
+          <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
+          <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+          <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+        </div>
+      </div>
+    </div>
+    <p style="padding-top: 3%;">Troop 305 is part of Pioneer District in the
+        <a href="http://www.bmcbsa.org/">Blue Mountain Council</a>
+        in Area 1 of the Western Region of the
+        <a href="http://www.scouting.org/">National Council</a>.
+        Scouting is part of a <a href="http://www.scout.org/">World Organization</a>.</p>
+    <p>To order uniforms, books or other scouting materials for your Scout there are two options; The first is through the local
+        <a href="http://www.bmcbsa.org/trading-post.html">Trading Post</a> at Blue Mountain Council and the second is through the online
+        <a href="http://www.scoutstuff.org/">ScoutStuff.org</a> national site.</p>
+    <p>The <b>Order of the Arrow (OA)</b> is the national honor society of the Boy Scouts of America.
+        It uses American Indian-styled traditions and ceremonies to bestow recognition on scouts selected by their peers as best exmplifying the ideals of Scouting.
+         More information can be found at this <a href="http://en.wikipedia.org/wiki/Order_of_the_Arrow">Wikipedia</a> entry or the
+        <a href="http://www.oa-bsa.org/">Offical OA</a> site.  Our local Lodge is <a href="https://www.bmcbsa.org/walamootkin-story">WA-LA-MOOT-KIN Lodge #336</a> which is part of
+        <a href="http://western.oa-bsa.org/sections?section=W-1E">Section W-1E</a> located in the <a href="http://western.oa-bsa.org/">Western Region</a>.</p>
+    <p>Adults wanting to participate should contact the Committee Chair to discuss committee positions or the Scoutmaster to discuss leadership positions needed.
+        Training is very important so visit <a href="https://myscouting.scouting.org" target="_blank">MyScouting.org</a>
+        to take various trainings from Youth Protection to Weather Hazards Training.  More information from our local council can be found <a href="http://www.bmcbsa.org/training.html" target="_blank">here</a>.
+    <p>Scouts working on Merit Badges can follow these links to find the latest
+    <a href="http://www.scouting.org/scoutsource/BoyScouts/AdvancementandAwards/MeritBadges.aspx" target="_blank">Merit Badge Requirements</a>
+    or <a href="http://usscouts.org/mb/worksheets/list.asp" target="_blank">Merit Badge Worksheets</a>.  Please check with your councelor before starting a merit badge.</p>
+    <p>Medical Forms can be found <a href="http://www.scouting.org/scoutsource/HealthandSafety/ahmr.aspx">here.</a></p>
+    <p>Contact the <a href="mailto:webmaster@troop305.net">Webmaster</a> with any feedback for our site.</p>
+    <p>To participate in the Troop 305 EMail mailing list please send an email to
+        <a href="mailto:list@troop305.com?subject=Please%20add%20me%20to%20the%20Troop%20305%20EMail%20mailing%20list">list@troop305.com</a> and your email will be included on the Troop 305 email list.
+        You can also ask to have your email removed.  To use the list send a message to; "families@troop305.com" to send a message out to the group.</p>
+</div>
+
+
+{% endblock %}
