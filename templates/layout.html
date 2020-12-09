@@ -17,6 +17,7 @@ http://troop100seattle.com/
     {% else %}
     <title>Welcome to Troop 305</title>
     {% endif %}
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -29,24 +30,27 @@ http://troop100seattle.com/
 </head>
 
 <body>
-  	<a href="http://www.troop305.com/" style="padding-bottom: 25px;">
+  	<a href="/" style="padding-bottom: 25px;">
   		<img src="./static/BSA.jpg" alt="Home">
     </a>
 	<nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
     <a class="navbar-brand" href="/">Troop 305</a>
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="/events">Events</a>
+        <a class="nav-link" href="/events">Events and Calender</a>
       </li>
       <li class="nav-item active dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-          Dropdown link
+          More
         </a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Link 1</a>
-          <a class="dropdown-item" href="#">Link 2</a>
-          <a class="dropdown-item" href="#">Link 3</a>
+          <a class="dropdown-item" href="/advance">Advancement</a>
+          <a class="dropdown-item" href="/eagle">Eagle Scout Honor Roll</a>
+          <a class="dropdown-item" href="/resource">Resources</a>
         </div>
+      <li class="nav-item active">
+        <a class="nav-link" href="http://webmail.troop305.net/">Email login</a>
+      </li>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="/login">Webmaster login</a>
@@ -72,8 +76,10 @@ http://troop100seattle.com/
 	</main>
 
 	<footer class="small text-center text-muted">
-		© Copyright 2009-2020 Troop 305, All rights reserved.
+		© Copyright 2009-{{ year }} Troop 305, All rights reserved.
 	</footer>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js"></script>
 	<script src="./static/script.js"></script>
+
 </body>
  </html>
