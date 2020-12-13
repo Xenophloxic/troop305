@@ -32,7 +32,7 @@ def index():
     title = "Home"
     img = db.execute('SELECT * FROM images')
     result = get_text("indexabout")
-    return render_template("index.html", title=title, image=img, year=datetime.now().year, indexabout=result)
+    return render_template("index.html", title=title, image=img, year=datetime.now().year, indexabout=result) # Contact our Scoutmaster at <a href="mailto:scoutmaster@troop305.com">scoutmaster@troop305.com</a><br>To participate in the Troop 305 EMail mailing list please send an email to <a href="mailto:list@troop305.com?subject=Please%20add%20me%20to%20the%20Troop%20305%20EMail%20mailing%20list">list@troop305.com</a> and your email will be included on the Troop 305 email list.  You can also ask to have your email removed.  To use the list send a message to; "families@troop305.com" to send a message out to the group.
 
 
 @app.route('/webmaster')
@@ -65,6 +65,10 @@ def upload_file():
             return "ERROR"
     return render_template('upload.html', year=datetime.now().year)
 
+@app.route('/events', methods=['GET'])
+def events():
+    events = db.execute('SELECT * FROM events')
+    return render_template('events.html', year=datetime.now().year)
 
 if __name__ == "__main__":
     app.run(debug=True)  # host='0.0.0.0'
