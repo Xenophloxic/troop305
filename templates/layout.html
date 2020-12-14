@@ -17,6 +17,7 @@ http://troop100seattle.com/
     {% else %}
     <title>Welcome to Troop 305</title>
     {% endif %}
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -26,34 +27,61 @@ http://troop100seattle.com/
     </script>
     <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert2.min.css">
     <link href="./static/style.css" rel="stylesheet" type="text/css" />
+    <script src="https://kit.fontawesome.com/8ca5e4a1f4.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  	<a href="http://www.troop305.com/" style="padding-bottom: 25px;">
+  	<a href="/" style="padding-bottom: 25px;">
   		<img src="./static/BSA.jpg" alt="Home">
     </a>
-	<nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
+	<nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top" style="padding-bottom: 5px;">
     <a class="navbar-brand" href="/">Troop 305</a>
+    <button type="button" class="navbar-toggler bg-primary" data-toggle="collapse" data-target="#nav">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="nav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="/events">Events</a>
+        <a class="nav-link" href="/events">Events and Calender</a>
       </li>
-      <li class="nav-item active dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-          Dropdown link
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Link 1</a>
-          <a class="dropdown-item" href="#">Link 2</a>
-          <a class="dropdown-item" href="#">Link 3</a>
-        </div>
+      <li class="nav-item active">
+        <a class="nav-link" href="http://webmail.troop305.net/">Email login</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="/login">Webmaster login</a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/resource">Resources</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/advance">Advancement</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/photos">Photos</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Docs and Forms</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="https://beascout.scouting.org/">Join Scouting</a>
+      </li>
+      <li class="nav-item active dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          More
+        </a>  
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/eagle">Eagle Scout Honor Roll</a>
+          <a class="dropdown-item" href="/presource">Planning Resources</a>
+          <a class="dropdown-item" href="/contact">Contact Us</a>
+          <a class="dropdown-item" href="/policy">Policy</a>
+          <a class="dropdown-item" href="/messages">Messages</a>
+          <a class="dropdown-item" href="/about">About Us</a>
+        </div>
+      </li>
+      
     </ul>
+    </div>
   </nav>
-  <div style="padding-bottom: 25px;"></div>
   
   {% block content %}
   {% endblock content %}
@@ -71,9 +99,11 @@ http://troop100seattle.com/
 		{% block main %}{% endblock %}
 	</main>
 
-	<footer class="small text-center text-muted">
-		© Copyright 2009-2020 Troop 305, All rights reserved.
+	<footer class="small text-center text-muted" style="padding-bottom: 25px;">
+		© Copyright 2009-{{ year }} Troop 305, All rights reserved.
 	</footer>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js"></script>
 	<script src="./static/script.js"></script>
+
 </body>
  </html>

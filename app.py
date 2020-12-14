@@ -17,6 +17,10 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def get_text(file):
+    if file == "indexabout":
+        with open('./text/index-about.txt', 'r') as f:
+            return f.read()
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -27,12 +31,13 @@ def login():
 def index():
     title = "Home"
     img = db.execute('SELECT * FROM images')
-    return render_template("index.html", title=title, image=img)
+    result = get_text("indexabout")
+    return render_template("index.html", title=title, image=img, year=datetime.now().year, indexabout=result) # Contact our Scoutmaster at <a href="mailto:scoutmaster@troop305.com">scoutmaster@troop305.com</a><br>To participate in the Troop 305 EMail mailing list please send an email to <a href="mailto:list@troop305.com?subject=Please%20add%20me%20to%20the%20Troop%20305%20EMail%20mailing%20list">list@troop305.com</a> and your email will be included on the Troop 305 email list.  You can also ask to have your email removed.  To use the list send a message to; "families@troop305.com" to send a message out to the group.
 
 
 @app.route('/webmaster')
 def webhome():
-    return "test"
+    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year)
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -53,17 +58,17 @@ def upload_file():
             }
             res = requests.post(url, payload)
             info = res.json()
-            cap = request.form.get('Caption')
-            print(cap)
-            db.execute('INSERT INTO images (url, caption) VALUES (:url, :caption)',
-                       url=info["data"]["display_url"], caption=cap)
+            db.execute('INSERT INTO images (url) VALUES (:url)',
+                       url=info["data"]["display_url"])
             # return redirect('/webmaster')
         else:
             return "ERROR"
-    return render_template('upload.html')
+    return render_template('upload.html', year=datetime.now().year)
 
+@app.route('/events', methods=['GET'])
+def events():
+    events = db.execute('SELECT * FROM events')
+    return render_template('events.html', year=datetime.now().year)
 
 if __name__ == "__main__":
     app.run(debug=True)  # host='0.0.0.0'
-
-# https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
