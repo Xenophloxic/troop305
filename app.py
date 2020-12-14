@@ -31,8 +31,9 @@ def login():
 def index():
     title = "Home"
     img = db.execute('SELECT * FROM images')
+    event = db.execute('SELECT * FROM events')
     result = get_text("indexabout")
-    return render_template("index.html", title=title, image=img, year=datetime.now().year, indexabout=result)
+    return render_template("index.html", title=title, images=img, year=datetime.now().year, indexabout=result, events=event)
 
 
 @app.route('/webmaster')
