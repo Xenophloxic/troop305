@@ -66,6 +66,10 @@ def upload_file():
             return "ERROR"
     return render_template('upload.html', year=datetime.now().year)
 
+@app.route('/events', methods=['GET'])
+def events():
+    events = db.execute('SELECT * FROM events')
+    return render_template('events.html', year=datetime.now().year)
 
 if __name__ == "__main__":
     app.run(debug=True)  # host='0.0.0.0'
