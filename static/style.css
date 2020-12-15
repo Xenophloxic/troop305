@@ -36,10 +36,9 @@ a:hover {
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     border-color: rgba(0,0,0,.05);
-    padding-bottom: 5%;
     margin: 0 0 20px;
-    padding-top: 5%;
-    padding-left: 15%;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .animated {
