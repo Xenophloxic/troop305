@@ -1,11 +1,11 @@
 import base64
-
 import requests
 from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
 from flask_session import Session
 from helpers import login_required, SQL
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
@@ -22,10 +22,6 @@ def get_text(file):
         with open('./text/index-about.txt', 'r') as f:
             return f.read()
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    return "test"
-
 
 @app.route('/')
 def index():
@@ -35,6 +31,67 @@ def index():
     result = get_text("indexabout")
     return render_template("index.html", title=title, images=img, year=datetime.now().year, indexabout=result, events=event)
 
+
+@app.route('/events', methods=['GET'])
+def events():
+    event = db.execute('SELECT * FROM events')
+    return render_template('events.html', year=datetime.now().year, events=event)
+
+
+@app.route('/resource', methods=['GET'])
+def resource():
+    return "TODO resources"
+
+
+@app.route('/advance', methods=['GET'])
+def advance():
+    return "TODO advancement"
+
+
+@app.route('/photos', methods=['GET'])
+def photos():
+    return "TODO photos"
+
+
+@app.route('/docs', methods=['GET'])
+def docs():
+    return "TODO Docs"
+
+
+@app.route('/eagle', methods=['GET'])
+def eagle():
+    return "TODO eagle"
+
+
+@app.route('/presource', methods=['GET'])
+def presource():
+    return "TODO Planning resources"
+
+
+@app.route('/contact', methods=['GET'])
+def contact():
+    return "TODO Contact us"
+
+
+@app.route('/policy', methods=['GET'])
+def policy():
+    return "TODO Policy"
+
+
+@app.route('/message', methods=['GET'])
+def message():
+    return "TODO messaging services"
+
+
+@app.route('/about', methods=['GET'])
+def about():
+    return "TODO About Us"
+
+
+@app.route('/news', methods=['GET'])
+def news():
+    return "TODO News"
+    
 
 @app.route('/webmaster')
 def webhome():
@@ -66,10 +123,11 @@ def upload_file():
             return "ERROR"
     return render_template('upload.html', year=datetime.now().year)
 
-@app.route('/events', methods=['GET'])
-def events():
-    event = db.execute('SELECT * FROM events')
-    return render_template('events.html', year=datetime.now().year, events=event)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    return "test"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
