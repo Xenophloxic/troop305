@@ -4,17 +4,8 @@
     <h3 style="padding-top: 5%;display:flex;justify-content:center;align-items:center;">Upload Images</h3>
     <div style="display:flex;justify-content:center;align-items:center;padding-top:10%">
         <form style="padding-top: 10px;" method=post action="/upload" enctype=multipart/form-data>
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFile">
-                <label class="custom-file-label" for="customFile">Choose file</label>
-            </div>
+            <input type=file name=file>
+          <input type=submit value=Upload>
         </form>
-
-        <script>
-        $(".custom-file-input").on("change", function() {
-        var fileName = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        });
-        </script>
     </div>
 {% endblock %}

@@ -45,12 +45,12 @@ def webhome():
 def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
+            return 'No file part'
+            # return redirect(request.url)
         file = request.files['file']
         if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
+            return 'No selected file'
+            # return redirect(request.url)
         if file and allowed_file(file.filename):
             url = "https://api.imgbb.com/1/upload"
             payload = {
@@ -61,15 +61,15 @@ def upload_file():
             info = res.json()
             db.execute('INSERT INTO images (url) VALUES (:url)',
                        url=info["data"]["display_url"])
-            # return redirect('/webmaster')
+            return redirect('/webmaster')
         else:
             return "ERROR"
     return render_template('upload.html', year=datetime.now().year)
 
 @app.route('/events', methods=['GET'])
 def events():
-    events = db.execute('SELECT * FROM events')
-    return render_template('events.html', year=datetime.now().year)
+    event = db.execute('SELECT * FROM events')
+    return render_template('events.html', year=datetime.now().year, events=event)
 
 if __name__ == "__main__":
-    app.run(debug=True)  # host='0.0.0.0'
+    app.run(debug=True)

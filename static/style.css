@@ -36,9 +36,10 @@ a:hover {
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     border-color: rgba(0,0,0,.05);
-    padding-bottom: 8px;
+    padding-bottom: 5%;
     margin: 0 0 20px;
-    padding-top: 8px;
+    padding-top: 5%;
+    padding-left: 15%;
 }
 
 .animated {
@@ -78,4 +79,3 @@ a:hover {
  -webkit-animation-name: fadeInLeft;
  animation-name: fadeInLeft;
  }
- animation-name: fadeInDown;
