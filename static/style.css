@@ -1,3 +1,7 @@
+*{
+  margin:0%;
+  }
+
 .flickity-button:focus {
   outline: none;
   box-shadow: 0 0 0 5px #19F;
@@ -50,3 +54,19 @@ a:hover {
    color: white;
    background: red;
  }
+
+.parent {
+  display: flex;
+}
+.map {
+  width: 50%;
+  background: lightblue;
+  /* Just so it's visible */
+}
+.events {
+  flex: 1;
+  /* Grow to rest of container */
+  background: lightgreen;
+  /* Just so it's visible */
+}
+
