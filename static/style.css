@@ -55,18 +55,15 @@ a:hover {
    background: red;
  }
 
-.parent {
+.indexparent {
   display: flex;
 }
 .map {
   width: 50%;
-  background: lightblue;
-  /* Just so it's visible */
+  margin-right: auto;
+  padding-left: 15%;
 }
 .events {
   flex: 1;
-  /* Grow to rest of container */
-  background: lightgreen;
-  /* Just so it's visible */
 }
 
