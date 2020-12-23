@@ -12,9 +12,6 @@
     <img src="{{ img['url'] }}">
     {% endfor %}
 </div>
-{% for event in events %}
-
-{% endfor %}
 
 <div style="padding-left: 5%; padding-bottom: 5%; padding-top: 5%; align-items: left;">
     <div class="wow animate__animated animate__fadeInLeft">
@@ -25,13 +22,22 @@
 
 <div class="indexparent">
     <div class="map">
-        <iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1420%20S%20Second%20Ave,%20Walla%20Walla,%20WA+(Christ%20Lutheran%20Church)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+        <iframe width="100%" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1420%20S%20Second%20Ave,%20Walla%20Walla,%20WA+(Christ%20Lutheran%20Church)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
         </iframe>
     </div>
 
     <div class="events">
-        <p>askjfh;ka</p>
+        <h4 style="font-weight: bold;"><u>Upcoming Events</u></h4><br>
+        {% for event in events %}
+        <h6><u>{{ event['event'] }}</u></h6>
+        <p>
+            <i>{{ event['date'] }}</i><br>
+            {{ event['desc'] }}
+        </p>
+
+        {% endfor %}
     </div>
 </div>
 
 {% endblock %}
+<!-- <button href="#" onclick="confirm('test')">test</button> -!>
