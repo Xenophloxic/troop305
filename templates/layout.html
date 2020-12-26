@@ -43,11 +43,17 @@
       <li class="nav-item active">
         <a class="nav-link" href="http://webmail.troop305.net/">Email login</a>
       </li>
+      {% if not home %}
       <li class="nav-item active">
         <a class="nav-link" href="/login">Webmaster login</a>
       </li>
+      {% else %}
       <li class="nav-item active">
-        <a class="nav-link" href="/resource">Resources</a>
+        <a class="nav-link" href="/webmaster">Webmaster Home</a>
+      </li>
+      {% endif %}
+      <li class="nav-item active">
+        <a class="nav-link" href="/useful">Useful Stuff</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="/advance">Advancement</a>

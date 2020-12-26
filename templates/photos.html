@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+{{ super() }}
+<div class="carousel" data-flickity='{ "cellAlign": "left",
+        "contain": true,
+        "autoPlay": 3000,
+        "pauseAutoPlayOnHover": false,
+        "wrapAround": true }'>
+    {% for img in images %}
+    <img src="{{ img['url'] }}">
+    {% endfor %}
+</div>
+<div style="padding-top:2%;display:flex;justify-content:center;align-items:center;">
+<h5>Carousel of all Photos currently on the <a href="/">homepage</a>.</h5>
+</div>
+
+
+{% endblock %}

@@ -1,17 +1,19 @@
 import base64
 import requests
-from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
+from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for, send_file
 from flask_session import Session
 from helpers import login_required, SQL
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from tempfile import mkdtemp
-
+import sqlalchemy
+    
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
 db = SQL('sqlite:///database.sqlite3')
+
 
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
@@ -32,7 +34,7 @@ def get_text(file):
 def index():
     title = "Home"
     img = db.execute('SELECT * FROM images')
-    event = db.execute('SELECT * FROM events')
+    event = db.execute("SELECT *, substr(date, 6,2) || '-' || substr(date, 9, 2)|| '-' || substr(date, 1, 4) AS new_date FROM events ORDER BY new_date ASC LIMIT 4;")
     result = get_text("indexabout")
     return render_template("index.html", title=title, images=img, year=datetime.now().year, indexabout=result, events=event)
 
@@ -43,22 +45,23 @@ def events():
         print('event post')
     else:
         event = db.execute('SELECT * FROM events')
-        return render_template('events.html', year=datetime.now().year, events=event)
+        return render_template('events.html', year=datetime.now().year, events=event, title="Events")
 
 
-@app.route('/resource', methods=["GET", "POST"])
-def resource():
-    return "TODO resources"
+@app.route('/useful', methods=["GET", "POST"])
+def useful():
+    return render_template("useful.html", year=datetime.now().year, title="Useful Stuff")
 
 
 @app.route('/advance', methods=["GET", "POST"])
-def advance():
-    return "TODO advancement"
+def advance():      
+    return redirect('./pdf/advancement.pdf')
 
 
 @app.route('/photos', methods=["GET", "POST"])
 def photos():
-    return "TODO photos"
+    img = db.execute('SELECT * FROM images')
+    return render_template("photos.html", year=datetime.now().year, title="Photos", images=img)
 
 
 @app.route('/docs', methods=["GET", "POST"])
@@ -73,7 +76,7 @@ def eagle():
 
 @app.route('/presource', methods=["GET", "POST"])
 def presource():
-    return "TODO Planning resources"
+    return render_template("presource.html", year=datetime.now().year, title="Planning Resources")
 
 
 @app.route('/contact', methods=["GET", "POST"])
@@ -101,9 +104,22 @@ def news():
     return "TODO News"
     
 
+@app.route('/pdf/<string:id>')
+def pdf(id):
+    return send_file(f'./pdf/{id}')
+
+
+@app.route('/video/<id>')
+def video(id):
+    if id == "HOW TO BUILD A SNOW SHELTER - YouTube [360p].mp4":
+        return redirect('https://youtu.be/pbQ6N0Kd6NY')
+    elif id == "OKPIK.m4v":
+        return redirect("https://youtu.be/_Skeve1gctA")
+
+
 @app.route('/webmaster', methods=["GET", "POST"])
 def webhome():
-    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year)
+    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -168,31 +184,37 @@ def upload_file():
 @app.route('/imgdel', methods=['GET', 'POST'])
 @login_required
 def imgdel():
-    return "Delete Images"
+    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
 
 
 @app.route('/editevent', methods=['GET', 'POST'])
 @login_required
 def editevent():
-    return "Edit Events"
+    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
+
+
+@app.route('/newsedit', methods=["GET", "POST"])
+@login_required
+def newsedit():
+    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
 
 
 @app.route('/caledit', methods=['GET', 'POST'])
 @login_required
 def caledit():
-    return "Edit Calender"
+    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
 
 
 @app.route('/hra', methods=['GET', 'POST'])
 @login_required
 def hra():
-    return "Add Honor Roll"
+    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
 
 
 @app.route('/text', methods=['GET', 'POST'])
 @login_required
 def text():
-    return "Edit Text"
+    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
 
 
 if __name__ == "__main__":

@@ -26,16 +26,17 @@
         </iframe>
     </div>
 
-    <div class="events">
+    <div class="events wow animate__animated animate__bounceInLeft">
         <h4 style="font-weight: bold;"><u>Upcoming Events</u></h4><br>
         {% for event in events %}
         <h6><u>{{ event['event'] }}</u></h6>
         <p>
-            <i>{{ event['date'] }}</i><br>
+            <i>{{ event['new_date'] }} @ {{ event['time'] }}</i><br>
             {{ event['desc'] }}
         </p>
 
         {% endfor %}
+        <a href="/events">More Events and Calender</a>
     </div>
 </div>
 
