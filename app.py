@@ -66,7 +66,7 @@ def photos():
 
 @app.route('/docs', methods=["GET", "POST"])
 def docs():
-    return "TODO Docs"
+    return render_template('docs.html', year=datetime.now().year, title="Docs and Forms")
 
 
 @app.route('/eagle', methods=["GET", "POST"])
