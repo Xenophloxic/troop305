@@ -71,7 +71,8 @@ def docs():
 
 @app.route('/eagle', methods=["GET", "POST"])
 def eagle():
-    return "TODO eagle"
+    name = db.execute('SELECT * FROM eagle ORDER BY id DESC')
+    return render_template("eagle.html", year=datetime.now().year, title="Eagle Honor Roll", names=name)
 
 
 @app.route('/presource', methods=["GET", "POST"])
@@ -101,7 +102,8 @@ def about():
 
 @app.route('/news', methods=["GET", "POST"])
 def news():
-    return "TODO News"
+    result = db.execute("SELECT * FROM news ORDER BY id DESC")
+    return render_template("news.html", year=datetime.now().year, title="News", news=result)
     
 
 @app.route('/pdf/<string:id>')

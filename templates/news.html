@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+{{ super() }}
+
+<div style="padding-top:2%;padding-left:35%;padding-right:35%;">
+    <div style="text-align:center;padding-bottom:25px;">
+        <h3>Troop 305 News</h3><br>
+        <h5>Updated regularaly</h5>
+    </div>
+    {% for new in news %}
+        <h6><b><u>{{ new["date"] }}</b></u></h6>
+        <p>{{ new["text"] }}</p>
+    {% endfor %}
+</div>
+{% endblock %}

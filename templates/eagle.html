@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+{{ super() }}
+
+<div style="padding-top:2%;padding-left:10%;padding-right:5%;">
+    <h1 style="text-align: center;">Troop 305 Eagle Honor Roll</h1>
+    <p>The Eagle Scout Award. It's Scouting's highest rank and among its most familiar icons.  Men who have earned it count it among their most treasured possessions. Those who missed it by a whisker remember exactly which requirement they didn't complete. Americans from all walks of life know that being an Eagle Scout is a great honor, even if they don't know just what the badge means.</p>
+    <p>The award is more than a badge. It's a state of being. You <i>are</i> an Eagle Scout--never <i>were</i>. You may have received the badge as a boy, but you earn it every day as a man. In the words of the Eagle Scout Promise, you do your best each day to make your training and example, your rank and your influence count strongly for better Scouting and for better citizenship in your troop, in your community, and in your contacts with other people. And to this you pledge your sacred honor.</p>
+    <p>This link to a .PDF document will help you to learn more about the <a href="pdf/History_of_Eagle_Scout_Award.pdf">History of the Eagle Scout Award (PDF)</a></p>
+    <p>The following Scouts from Troop 305 have received Scoutings Highest Rank:</p><br>
+    <ul>
+        {% for name in names %}
+        <li>{{ name['name'] }} ({{ name['date'] }})</li>
+        {% endfor %}
+    </ul>    
+</div>
+
+{% endblock %}
