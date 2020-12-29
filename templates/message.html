@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+{{ super() }}
+<div class="text-center">
+    <p>To be a part of Troop 305's <a href="https://www.remind.com/join/troop305g">Remind</a> group, use the code <code>{{ code }}</code><br>
+    <a href="https://www.remind.com/resources/3-steps-to-getting-started">Click here to learn how to sign up for Remind</a><br>
+    <b>WARNING: Might be outdated:</b> Also see: <a href="/pdf/Messaging_Services.pdf">here</a></p>
+    <h4>Remember to be kind and courteous when using Remind and Text messages.</h4>
+    <img style="padding-top: 1%;" src="./static/remind.png">
+</div>
+
+{% endblock %}

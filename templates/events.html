@@ -3,5 +3,22 @@
 
 {% block content %}
 {{ super() }}
-<h3>Events</h3>
+<div style="padding-left: 20%;padding-right:5%;padding-top:2%;">
+
+    <h2><u><b>Events</b></u></h2><br>
+    <div class="event-page wow animate__animated animate__bounceInLeft">
+        {% for event in events %}
+            <div class="event-item">
+                <h6><u>{{ event['event'] }}</u></h6>
+                <p>
+                    <i>{{ event['new_date'] }} @ {{ event['time'] }}</i><br>
+                    {{ event['desc'] }}
+                </p>
+            </div>
+        {% endfor %}
+        <a href="/events">More Events and Calender</a>
+    </div>
+
+</div>
+
 {% endblock %}

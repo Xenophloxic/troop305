@@ -25,9 +25,8 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def get_text(file):
-    if file == "indexabout":
-        with open('./text/index-about.txt', 'r') as f:
-            return f.read()
+    with open(f'./text/{file}.txt', 'r') as f:
+        return f.read()
 
 
 @app.route('/')
@@ -35,7 +34,7 @@ def index():
     title = "Home"
     img = db.execute('SELECT * FROM images')
     event = db.execute("SELECT *, substr(date, 6,2) || '-' || substr(date, 9, 2)|| '-' || substr(date, 1, 4) AS new_date FROM events ORDER BY new_date ASC LIMIT 4;")
-    result = get_text("indexabout")
+    result = get_text("index-about")
     return render_template("index.html", title=title, images=img, year=datetime.now().year, indexabout=result, events=event)
 
 
@@ -44,7 +43,7 @@ def events():
     if request.method == "POST":
         print('event post')
     else:
-        event = db.execute('SELECT * FROM events')
+        event = db.execute("SELECT *, substr(date, 6,2) || '-' || substr(date, 9, 2)|| '-' || substr(date, 1, 4) AS new_date FROM events ORDER BY new_date ASC;")
         return render_template('events.html', year=datetime.now().year, events=event, title="Events")
 
 
@@ -82,22 +81,18 @@ def presource():
 
 @app.route('/contact', methods=["GET", "POST"])
 def contact():
-    return "TODO Contact us"
+    return redirect('mailto:scoutmaster@troop305.net')
 
 
 @app.route('/policy', methods=["GET", "POST"])
 def policy():
-    return "TODO Policy"
+    return render_template("policy.html", year=datetime.now().year, title="Policy")
 
 
 @app.route('/message', methods=["GET", "POST"])
 def message():
-    return "TODO messaging services"
-
-
-@app.route('/about', methods=["GET", "POST"])
-def about():
-    return "TODO About Us"
+    result = get_text('remind')
+    return render_template("message.html", year=datetime.now().year, title="Messaging Services", code=result)
 
 
 @app.route('/news', methods=["GET", "POST"])
