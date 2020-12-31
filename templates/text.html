@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+{{ super() }}
+<h3 style="padding-top: 5%;padding-bottom:2%;display:flex;justify-content:center;align-items:center;">Edit Text</h3>
+<div class="event-page">
+    <div class="event-item">
+        <h4 style="text-align:center;padding-left:2%;">Text</h4><br>
+        <div style="display:flex;justify-content:center;align-items:center;">
+            <form id="add" style="padding-top: 10px;" method=post action="/text" enctype=multipart/form-data>
+                <input list="file" placeholder="text">
+                <datalist id="file" name="file">
+                    <option value="Front Page">
+                    <option value="Remind Code">
+                </datalist><br><br>
+                <textarea name="desc" form="add" placeholder="Enter new text here"></textarea>
+                <h5 style="padding-top: 5px;">Are you sure?</h5>
+                <input type="radio" value="yes" name="sure">
+                <label for="sure">Yes</label><br>
+                <input type="radio" value="no" name="sure">
+                <label for="sure">No</label><br>
+                <input type=submit value="Add" name="submit">
+            </form>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

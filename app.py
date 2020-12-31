@@ -49,10 +49,8 @@ def index():
 
 @app.route('/events', methods=["GET", "POST"])
 def events():
-    for data in db.execute("SELECT *, substr(date, 6,2) || '-' || substr(date, 9, 2)|| '-' || substr(date, 1, 4) AS new_date FROM events WHERE date >= date('now') ORDER BY new_date ASC;"):
-        s = data["date"].split("-")
-        data["time"] = datetime(int(s[0]), int(s[1]), int(s[2])).strftime("%I:%M")
-    return render_template('events.html', year=datetime.now().year, events=data, title="Events")
+    event = db.execute("SELECT *, substr(date, 6,2) || '-' || substr(date, 9, 2)|| '-' || substr(date, 1, 4) AS new_date FROM events WHERE date >= date('now') ORDER BY new_date ASC;")
+    return render_template('events.html', year=datetime.now().year, events=event, title="Events")
 
 
 @app.route('/useful', methods=["GET", "POST"])
@@ -269,7 +267,24 @@ def hra():
 @app.route('/text', methods=['GET', 'POST'])
 @login_required
 def text():
-    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
+    if request.method == "POST":
+        if request.form.get("sure") == "no":
+                flash("Cancelled")
+                return redirect('/webmaster')
+        else:
+            if request.form.get("file") == "Front Page":
+                x = "index-about"
+            else:
+                x = "remind"
+            try:
+                edit_file(x, request.form.get("desc"))
+                flash("Done!")
+                return redirect("/webmaster")
+            except Exception:
+                flash("Error, please try again")
+                return redirect("/text")
+    else:
+        return render_template('text.html', title="Edit Text", year=datetime.now().year, home=True)
 
 
 def errorhandler(e):
