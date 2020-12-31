@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+{{ super() }}
+<h3 style="padding-top: 5%;padding-bottom:2%;display:flex;justify-content:center;align-items:center;">Edit Events</h3>
+    <div class="event-page wow animate__animated animate__bounceInLeft" style="padding-left:5%;">
+        {% for new in news %}
+            <div class="event-item">
+                <h6><u>{{ new['head'] }} - {{ new['id'] }}</u></h6>
+                <p>
+                    <i>{{ new['new_date'] }}</i><br>
+                    {{ new['text'] }}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+<div class="event-page">
+    <div class="event-item">
+        <h4 style="text-align:center;">Delete</h4><br>
+        <div style="display:flex;justify-content:center;align-items:center;">
+            
+            <form style="padding-top: 10px;" method=post action="/newsedit" enctype=multipart/form-data>
+                <input type="text" placeholder="News ID from above" name="id" required><br>
+                <h5 style="padding-top: 5px;">Are you sure?</h5>
+                <input type="radio" value="yes" name="sure">
+                <label for="sure">Yes</label><br>
+                <input type="radio" value="no" name="sure">
+                <label for="sure">No</label><br>
+                <input type=submit value="Delete" name="submit">
+            </form>
+        </div>
+    </div>
+    <div class="event-item">
+        <h4 style="text-align:center;padding-left:2%;">Add</h4><br>
+        <div style="display:flex;justify-content:center;align-items:center;">
+            
+            <form id="add" style="padding-top: 10px;" method=post action="/newsedit" enctype=multipart/form-data>
+                <input type="text" placeholder="What is the News" name="head" required><br>
+                <textarea name="news" form="add" placeholder="Enter a description of the news here"></textarea>
+                <h5 style="padding-top: 5px;">Are you sure?</h5>
+                <input type="radio" value="yes" name="sure">
+                <label for="sure">Yes</label><br>
+                <input type="radio" value="no" name="sure">
+                <label for="sure">No</label><br>
+                <input type=submit value="Add" name="submit">
+            </form>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

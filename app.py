@@ -103,7 +103,7 @@ def message():
 
 @app.route('/news', methods=["GET", "POST"])
 def news():
-    result = db.execute("SELECT * FROM news ORDER BY id DESC")
+    result = db.execute("SELECT *, substr(date, 6,2) || '-' || substr(date, 9, 2)|| '-' || substr(date, 1, 4) AS new_date FROM news ORDER BY id DESC")
     return render_template("news.html", year=datetime.now().year, title="News", news=result)
     
 
@@ -233,7 +233,26 @@ def editevent():
 @app.route('/newsedit', methods=["GET", "POST"])
 @login_required
 def newsedit():
-    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
+    if request.method == "POST":
+        if request.form.get("sure") == "no":
+                flash("Cancelled")
+                return redirect('/webmaster')
+        else: 
+            if request.form.get("submit") == "Delete":
+                try:
+                    db.execute("DELETE FROM news WHERE id=:number", number=int(request.form.get("id")))
+                    flash("Done!")
+                    return redirect("/webmaster")
+                except RuntimeError:
+                    flash("Invaild ID")
+                    return redirect("/webmaster")
+            else:
+                db.execute("INSERT INTO news (text, date, head) VALUES (:text, date('now'), :head)", text=request.form.get("news"), head=request.form.get("head"))
+                flash("Done!")
+                return redirect("/webmaster")
+    else:
+        new = db.execute("SELECT *, substr(date, 6,2) || '-' || substr(date, 9, 2)|| '-' || substr(date, 1, 4) AS new_date FROM news ORDER BY id DESC")
+        return render_template('newsedit.html', title="Edit News", year=datetime.now().year, home=True, news=new)
 
 
 @app.route('/hra', methods=['GET', 'POST'])
