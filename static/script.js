@@ -1,10 +1,3 @@
-swal({
-  title: "Welcome!",
-  text: "This site is in progress, I am working on it",
-  icon: "success",
-  button: "Ok, I'll check later",
-})
-
 const webmaster = "Wow, you knew how to do that. If you didn't google that, and you have an extensive knowledge of Web Development, you should remake this website! (but only if it is really old and seems really 2020-ish)"
 
 console.log("_.-^^---....,,---_\n_--                  --_\n<          BOOM!         >)\n\._                   _./\n   ```--. . , ; .--'''\n         | |   |\n      .-=||  | |=-.\n      `-=#$%&%$#=-'\n         | ;  :|\n_____.,-#%&$@%#&#~,._____\nHey! What are you doing here? If you know what to do, then print the variable  webmaster")
