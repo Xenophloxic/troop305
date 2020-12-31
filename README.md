@@ -15,6 +15,6 @@ Home for the webmaster
 <code>
 and many others
 </code><br>
-This will be uploaded to [http://troop305.com](http://troop305.com)
+This will be uploaded to http://troop305.com
 
 All changes to the website are made by a POST form action.
