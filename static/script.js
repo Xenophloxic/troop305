@@ -9,21 +9,20 @@ const webmaster = "Wow, you knew how to do that. If you didn't google that, and 
 
 console.log("_.-^^---....,,---_\n_--                  --_\n<          BOOM!         >)\n\._                   _./\n   ```--. . , ; .--'''\n         | |   |\n      .-=||  | |=-.\n      `-=#$%&%$#=-'\n         | ;  :|\n_____.,-#%&$@%#&#~,._____\nHey! What are you doing here? If you know what to do, then print the variable  webmaster")
 
-function confirm(value) {
+function confirm() {
   swal({
     title: "Are you sure?",
-    text: `If you delete ${value}, it will be gone forever (A very long time!)`,
+    text: `If you delete this file, it will be gone forever (A very long time!)`,
     icon: "warning",
     buttons: true,
     dangerMode: true,
   })
   .then((willDelete) => {
-    if (willDelete) {
+    if (willDelete)  {
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "http://127.0.0.1:5000/webmaster", true);
+      xhr.open("POST", "http://127.0.0.1:5000/events", true);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.send(JSON.stringify({
-          value: value
       }));
     } else {
       swal("The file is safe", {

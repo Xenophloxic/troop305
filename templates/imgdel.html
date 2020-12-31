@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{{ super() }}
+    <h3 style="padding-top: 5%;padding-bottom:2%;display:flex;justify-content:center;align-items:center;">Delete Images</h3>
+    <div class="myGallery">
+        {% for img in images %}
+            <div class="item">
+                <img src="{{ img['url'] }}" />
+                <span class="caption">{{ img['id'] }}</span>
+            </div>
+        {% endfor %}
+    </div>
+    <div style="display:flex;justify-content:center;align-items:center;padding-top:2%">
+        <form style="padding-top: 10px;" method=post action="/imgdel" enctype=multipart/form-data>
+            <input type="text" placeholder="Image ID from above" name="id" required><br>
+            <h5 style="padding-top: 5px;">Are you sure?</h5>
+            <input type="radio" value="yes" name="sure">
+            <label for="sure">Yes</label><br>
+            <input type="radio" value="no" name="sure">
+            <label for="sure">No</label><br>
+            <input type=submit value=Delete>
+        </form>
+    </div>
+{% endblock %}

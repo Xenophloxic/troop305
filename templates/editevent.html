@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+{{ super() }}
+<h3 style="padding-top: 5%;padding-bottom:2%;display:flex;justify-content:center;align-items:center;">Edit Events</h3>
+    <div class="event-page wow animate__animated animate__bounceInLeft" style="padding-left:5%;">
+        {% for event in events %}
+            <div class="event-item">
+                <h6><u>{{ event['event'] }} - {{ event['id'] }}</u></h6>
+                <p>
+                    <i>{{ event['new_date'] }} @ {{ event['time'] }}</i><br>
+                    {{ event['desc'] }}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+<div class="event-page">
+    <div class="event-item">
+        <h4 style="text-align:center;">Delete</h4><br>
+        <div style="display:flex;justify-content:center;align-items:center;">
+            
+            <form style="padding-top: 10px;" method=post action="/editevent" enctype=multipart/form-data>
+                <input type="text" placeholder="Event ID from above" name="id" required><br>
+                <h5 style="padding-top: 5px;">Are you sure?</h5>
+                <input type="radio" value="yes" name="sure">
+                <label for="sure">Yes</label><br>
+                <input type="radio" value="no" name="sure">
+                <label for="sure">No</label><br>
+                <input type=submit value="Delete" name="submit">
+            </form>
+        </div>
+    </div>
+    <div class="event-item">
+        <h4 style="text-align:center;padding-left:2%;">Add</h4><br>
+        <div style="display:flex;justify-content:center;align-items:center;">
+            
+            <form id="add" style="padding-top: 10px;" method=post action="/editevent" enctype=multipart/form-data>
+                <input type="text" placeholder="What is the event" name="event" required><br>
+                <input type="date" placeholder="Date YYYY/MM/DD format" name="date" required><br>
+                <input type="time" placeholder="Time" name="time" required><br>
+                <textarea name="desc" form="add" placeholder="Enter a description of the event here"></textarea>
+                <h5 style="padding-top: 5px;">Are you sure?</h5>
+                <input type="radio" value="yes" name="sure">
+                <label for="sure">Yes</label><br>
+                <input type="radio" value="no" name="sure">
+                <label for="sure">No</label><br>
+                <input type=submit value="Add" name="submit">
+            </form>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -26,13 +26,13 @@ def _enable_logging(f):
             return f(*args, **kwargs)
 
         # Enable logging
-        disabled = logging.getLogger("cs50").disabled
+        disabled = logging.getLogger("helper").disabled
         if flask.current_app:
-            logging.getLogger("cs50").disabled = False
+            logging.getLogger("helper").disabled = False
         try:
             return f(*args, **kwargs)
         finally:
-            logging.getLogger("cs50").disabled = disabled
+            logging.getLogger("helper").disabled = disabled
 
     return decorator
 
@@ -56,7 +56,7 @@ class SQL(object):
         import sqlite3
 
         # Get logger
-        self._logger = logging.getLogger("cs50")
+        self._logger = logging.getLogger("helper")
 
         # Require that file already exist for SQLite
         matches = re.search(r"^sqlite:///(.+)$", url)

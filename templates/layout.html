@@ -86,18 +86,18 @@
     </ul>
     </div>
   </nav>
-  
-  {% block content %}
-  {% endblock content %}
 
-
-	{% if get_flashed_messages() %}
+  {% if get_flashed_messages() %}
 		<header>
 			<div class="alert alert-primary border text-center" role="alert">
 				{{ get_flashed_messages() | join(" ") }}
 			</div>
 		</header>
-	{% endif %}
+  {% endif %}
+  
+
+  {% block content %}
+  {% endblock content %}
 
 	<main class="container p-5 main">
 		{% block main %}{% endblock %}

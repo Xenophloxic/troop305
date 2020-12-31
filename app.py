@@ -7,6 +7,7 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from tempfile import mkdtemp
 import sqlalchemy
+from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
     
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
@@ -28,23 +29,30 @@ def get_text(file):
     with open(f'./text/{file}.txt', 'r') as f:
         return f.read()
 
+def edit_file(file, text):
+    f = open(f'./text/{file}.txt', 'w')
+    f.writelines(text)
+    fi = open(f'./text/{file}.txt')
+    content = fi.read()
+    fi.close()
+    return content
+
 
 @app.route('/')
 def index():
     title = "Home"
     img = db.execute('SELECT * FROM images')
-    event = db.execute("SELECT *, substr(date, 6,2) || '-' || substr(date, 9, 2)|| '-' || substr(date, 1, 4) AS new_date FROM events ORDER BY new_date ASC LIMIT 4;")
+    event = db.execute("SELECT *, substr(date, 6,2) || '-' || substr(date, 9, 2)|| '-' || substr(date, 1, 4) AS new_date FROM events WHERE date >= date('now') ORDER BY new_date ASC LIMIT 4;")
     result = get_text("index-about")
     return render_template("index.html", title=title, images=img, year=datetime.now().year, indexabout=result, events=event)
 
 
 @app.route('/events', methods=["GET", "POST"])
 def events():
-    if request.method == "POST":
-        print('event post')
-    else:
-        event = db.execute("SELECT *, substr(date, 6,2) || '-' || substr(date, 9, 2)|| '-' || substr(date, 1, 4) AS new_date FROM events ORDER BY new_date ASC;")
-        return render_template('events.html', year=datetime.now().year, events=event, title="Events")
+    for data in db.execute("SELECT *, substr(date, 6,2) || '-' || substr(date, 9, 2)|| '-' || substr(date, 1, 4) AS new_date FROM events WHERE date >= date('now') ORDER BY new_date ASC;"):
+        s = data["date"].split("-")
+        data["time"] = datetime(int(s[0]), int(s[1]), int(s[2])).strftime("%I:%M")
+    return render_template('events.html', year=datetime.now().year, events=data, title="Events")
 
 
 @app.route('/useful', methods=["GET", "POST"])
@@ -70,7 +78,7 @@ def docs():
 
 @app.route('/eagle', methods=["GET", "POST"])
 def eagle():
-    name = db.execute('SELECT * FROM eagle ORDER BY id DESC')
+    name = db.execute("SELECT *, substr(date, 6,2) || '-' || substr(date, 9, 2)|| '-' || substr(date, 1, 4) AS new_date FROM eagle ORDER BY new_date DESC")
     return render_template("eagle.html", year=datetime.now().year, title="Eagle Honor Roll", names=name)
 
 
@@ -115,6 +123,7 @@ def video(id):
 
 
 @app.route('/webmaster', methods=["GET", "POST"])
+@login_required 
 def webhome():
     return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
 
@@ -181,13 +190,46 @@ def upload_file():
 @app.route('/imgdel', methods=['GET', 'POST'])
 @login_required
 def imgdel():
-    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
+    if request.method == "POST":
+        if request.form.get("sure") == "no":
+            flash("Cancelled")
+            return redirect('/webmaster')
+        else:
+            try:
+                db.execute("DELETE FROM images WHERE id=:number", number=int(request.form.get("id")))
+                flash("Done!")
+                return redirect("/webmaster")
+            except RuntimeError:
+                flash("Invaild ID")
+                return redirect("/webmaster")
+    else:
+        img = db.execute("SELECT * FROM images")
+        return render_template('imgdel.html', title="Delete Images", year=datetime.now().year, home=True, images=img)
 
 
 @app.route('/editevent', methods=['GET', 'POST'])
 @login_required
 def editevent():
-    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
+    if request.method == "POST":
+        if request.form.get("sure") == "no":
+                flash("Cancelled")
+                return redirect('/webmaster')
+        else: 
+            if request.form.get("submit") == "Delete":
+                try:
+                    db.execute("DELETE FROM events WHERE id=:number", number=int(request.form.get("id")))
+                    flash("Done!")
+                    return redirect("/webmaster")
+                except RuntimeError:
+                    flash("Invaild ID")
+                    return redirect("/webmaster")
+            else:
+                db.execute("INSERT INTO events (event, date, desc, time) VALUES (:event, :date, :desc, :time)", event=request.form.get("event"), date=request.form.get("date"), desc=request.form.get("desc"), time=request.form.get("time"))
+                flash("Done!")
+                return redirect("/webmaster")
+    else:
+        event = db.execute("SELECT *, substr(date, 6,2) || '-' || substr(date, 9, 2)|| '-' || substr(date, 1, 4) AS new_date FROM events ORDER BY new_date ASC;")
+        return render_template('editevent.html', title="Edit events", year=datetime.now().year, home=True, events=event)
 
 
 @app.route('/newsedit', methods=["GET", "POST"])
@@ -196,22 +238,49 @@ def newsedit():
     return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
 
 
-@app.route('/caledit', methods=['GET', 'POST'])
-@login_required
-def caledit():
-    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
-
-
 @app.route('/hra', methods=['GET', 'POST'])
 @login_required
 def hra():
-    return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
+    if request.method == "POST":
+        if request.form.get("sure") == "no":
+                flash("Cancelled")
+                return redirect('/webmaster')
+        else:
+            if request.form.get("submit") == "Add":
+                try:
+                    db.execute("INSERT INTO eagle (name, date) VALUES (:name, :date)", name=request.form.get("name"), date=request.form.get("date"))
+                    flash("Done!")
+                    return redirect("/webmaster")
+                except RuntimeError:
+                    flash("Error, please try again")
+                    return redirect("/hra")
+            else:
+                try:
+                    db.execute("DELETE FROM eagle WHERE name=:name", name=request.form.get("name"))
+                    flash("Done!")
+                    return redirect("/webmaster")
+                except RuntimeError:
+                    flash("Invaild ID")
+                    return redirect("/webmaster")
+    else:
+        return render_template('hra.html', title="Add Honor Roll", year=datetime.now().year, home=True)
 
 
 @app.route('/text', methods=['GET', 'POST'])
 @login_required
 def text():
     return render_template('webmaster.html', title="Webmaster", year=datetime.now().year, home=True)
+
+
+def errorhandler(e):
+    """Handle error"""
+    if not isinstance(e, HTTPException):
+        e = InternalServerError()
+    return render_template("error.html", name=e.name, code=e.code)
+
+
+for code in default_exceptions:
+    app.errorhandler(code)(errorhandler)
 
 
 if __name__ == "__main__":
